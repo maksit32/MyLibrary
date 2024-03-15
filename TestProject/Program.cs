@@ -1,54 +1,50 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using static UDPLibrary.UDPClass;
 
 
-
-
-using UdpClient sender = CreateUpdClient("192.168.56.1", 8080);
-Console.WriteLine(sender.Client.RemoteEndPoint);
-
-ReceiveMessagesAsync();
-await SendMessageAsync(sender, $"Spam 12312");
-await TestSpamMessages();
+//***
+//using needed!!!!
+//***
 
 
 
+//192.168.0.13
+//using UdpClient udpClient = new UdpClient();
+//using UdpClient udpReceiver = new UdpClient(new IPEndPoint(IPAddress.Parse("192.168.0.13"), 11111));
+
+//var helloStr = "Hello";
+//var bytes = Encoding.UTF8.GetBytes(helloStr);
+//var task = Task.Run(async () =>
+//{
+//	var message = await udpReceiver.ReceiveAsync();
+//	Console.WriteLine(Encoding.UTF8.GetString(message.Buffer));
+//});
+//await udpClient.SendAsync(bytes, new IPEndPoint(IPAddress.Parse("192.168.0.13"), 11111));
+//Task.WaitAny(task);
 
 
+
+
+//получатель(receiver) держит ip + port,
+//отправитель(sender) просто шлет напрямую (он пустой)
+string ipAdress = "192.168.0.13";
+int port = 5555;
+string message = "Hello, world!";
+using UdpClient udpReceiver = new UdpClient(new IPEndPoint(IPAddress.Parse(ipAdress), port));
+
+
+await SendMessageAsync(ipAdress, port, message);
+string receivedMessage = await ReceiveMessageAsync(udpReceiver);
+
+
+
+
+
+Console.WriteLine(receivedMessage);
 Console.WriteLine("Press to exit");
 Console.ReadLine();
-
-
-
-
-async Task ReceiveMessagesAsync()
-{
-	//2й - получатель (порт как у отправителя)
-	using UdpClient receiver = new UdpClient(8080);
-	while (true)
-	{
-		// получаем данные
-		var result = await receiver.ReceiveAsync();
-		var message = Encoding.UTF8.GetString(result.Buffer);
-		// выводим сообщение
-		Console.WriteLine(message);
-	}
-}
-async Task TestSpamMessages()
-{
-
-	for (int i = 1; i <= 10; i++)
-	{
-		await SendMessageAsync(sender, $"Spam #{i}");
-	}
-}
-
-
-
-
 
 
 

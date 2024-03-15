@@ -9,89 +9,36 @@ namespace UDPLibrary
 {
 	public static class UDPClass
 	{
-		public static UdpClient CreateUpdClient(int port)
+		//example:			using UdpClient udpReceiver = new UdpClient(new IPEndPoint(IPAddress.Parse(ipAdress), port));
+		public static async Task<string> ReceiveMessageAsync(UdpClient udpReceiver)
 		{
-			if (port < 0) throw new ArgumentOutOfRangeException("Port can`t be less than 0!");
-
-			UdpClient udpClient = new UdpClient(port);
-			return udpClient;
-		}
-		public static UdpClient CreateUpdClient(string hostname, int port)
-		{
-			if (string.IsNullOrWhiteSpace(hostname))
+			if (udpReceiver is null)
 			{
-				throw new ArgumentException($"\"{nameof(hostname)}\" не может быть пустым или содержать только пробел.", nameof(hostname));
-			}
-			if (port < 0) throw new ArgumentOutOfRangeException("Port can`t be less than 0!");
-
-			UdpClient udpClient = new UdpClient(hostname, port);
-			return udpClient;
-		}
-		public static UdpClient CreateUpdClient(int port, AddressFamily family)
-		{
-			if (port < 0) throw new ArgumentOutOfRangeException("Port can`t be less than 0!");
-
-			UdpClient udpClient = new UdpClient(port, family);
-			return udpClient;
-		}
-		public static UdpClient CreateUpdClient(IPEndPoint localEP)
-		{
-			if (localEP is null)
-			{
-				throw new ArgumentNullException(nameof(localEP));
+				throw new ArgumentNullException(nameof(udpReceiver));
 			}
 
-			UdpClient udpClient = new UdpClient(localEP);
-			return udpClient;
-		}
-		public static async Task<string> ReceiveMessageAsync(UdpClient client)
-		{
-			if (client is null)
+			if (udpReceiver.Available > 0)
 			{
-				throw new ArgumentNullException(nameof(client));
-			}
-
-			if (client.Available > 0)
-			{
-				// буфер для получения данных
-				byte[] responseBytes = new byte[4096];
-				// получаем данные
-				int bytesCount = await client.Client.ReceiveAsync(responseBytes);
-				// преобразуем полученные данные в строку
-				string response = Encoding.UTF8.GetString(responseBytes, 0, bytesCount);
-
-				return response;
+				var message = await udpReceiver.ReceiveAsync();
+				return Encoding.UTF8.GetString(message.Buffer);
 			}
 			return string.Empty;
 		}
-		public static async Task SendMessageAsync(UdpClient client, string message)
+		public static async Task SendMessageAsync(string ipAdress, int port, string message)
 		{
-			if (client is null)
+			if (string.IsNullOrWhiteSpace(ipAdress))
 			{
-				throw new ArgumentNullException(nameof(client));
+				throw new ArgumentException($"\"{nameof(ipAdress)}\" не может быть пустым или содержать только пробел.", nameof(ipAdress));
 			}
+			if (port <= 0) throw new ArgumentOutOfRangeException("Port can`t be less than 0!");
 			if (string.IsNullOrWhiteSpace(message))
 			{
 				throw new ArgumentException($"\"{nameof(message)}\" не может быть пустым или содержать только пробел.", nameof(message));
 			}
 
-			if(client.Client.Connected)
-			{
-				await client.Client.SendAsync(Encoding.UTF8.GetBytes(message));
-			}
-		}
-		public static async Task DisconnectUdpClient(UdpClient client)
-		{
-			if (client is null)
-			{
-				throw new ArgumentNullException(nameof(client));
-			}
-
-			if(client.Client.Connected)
-			{
-				await SendMessageAsync(client, "DisconnectSucess!");
-				await client.Client.DisconnectAsync(false); //для повторного использования - true
-			}
+			//новый отправитель. Шлет напрямую
+			using UdpClient udpSender = new UdpClient();
+			await udpSender.SendAsync(Encoding.UTF8.GetBytes(message), new IPEndPoint(IPAddress.Parse(ipAdress), port));
 		}
 	}
 }
