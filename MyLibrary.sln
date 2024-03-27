@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TCPLibrary", "TCPLibrary\TC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JSONLibrary", "JSONLibrary\JSONLibrary.csproj", "{0B64A40A-3577-4298-826A-514E2A4FDECE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDPLibrary", "UDPLibrary\UDPLibrary.csproj", "{7FF225DC-8F53-44CA-B1BE-96AE9FEA52D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UDPLibrary", "UDPLibrary\UDPLibrary.csproj", "{7FF225DC-8F53-44CA-B1BE-96AE9FEA52D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCoreLibrary", "EFCoreLibrary\EFCoreLibrary.csproj", "{74DEEE33-30A7-498A-9D74-3C8C0E745933}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBotLibrary", "TelegramBot Library\TelegramBotLibrary.csproj", "{C0935766-B2DB-4232-B86A-0D6468DE1989}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{7FF225DC-8F53-44CA-B1BE-96AE9FEA52D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FF225DC-8F53-44CA-B1BE-96AE9FEA52D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FF225DC-8F53-44CA-B1BE-96AE9FEA52D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74DEEE33-30A7-498A-9D74-3C8C0E745933}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74DEEE33-30A7-498A-9D74-3C8C0E745933}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74DEEE33-30A7-498A-9D74-3C8C0E745933}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74DEEE33-30A7-498A-9D74-3C8C0E745933}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0935766-B2DB-4232-B86A-0D6468DE1989}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0935766-B2DB-4232-B86A-0D6468DE1989}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0935766-B2DB-4232-B86A-0D6468DE1989}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0935766-B2DB-4232-B86A-0D6468DE1989}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
