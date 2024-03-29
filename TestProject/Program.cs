@@ -4,6 +4,8 @@ using System.Text;
 using static UDPLibrary.UDPClass;
 
 
+
+#region [Test1]
 //***
 //using needed!!!!
 //***
@@ -29,22 +31,22 @@ using static UDPLibrary.UDPClass;
 
 //получатель(receiver) держит ip + port,
 //отправитель(sender) просто шлет напрямую (он пустой)
-string ipAdress = "192.168.0.13";
-int port = 5555;
-string message = "Hello, world!";
-using UdpClient udpReceiver = new UdpClient(new IPEndPoint(IPAddress.Parse(ipAdress), port));
+//string ipAdress = "192.168.0.13";
+//int port = 5555;
+//string message = "Hello, world!";
+//using UdpClient udpReceiver = new UdpClient(new IPEndPoint(IPAddress.Parse(ipAdress), port));
 
 
-await SendMessageAsync(ipAdress, port, message);
-string receivedMessage = await ReceiveMessageAsync(udpReceiver);
+//await SendMessageAsync(ipAdress, port, message);
+//string receivedMessage = await ReceiveMessageAsync(udpReceiver);
 
 
 
 
 
-Console.WriteLine(receivedMessage);
-Console.WriteLine("Press to exit");
-Console.ReadLine();
+//Console.WriteLine(receivedMessage);
+//Console.WriteLine("Press to exit");
+//Console.ReadLine();
 
 
 
@@ -101,3 +103,13 @@ Console.ReadLine();
 //		Console.WriteLine(message);
 //	}
 //}
+#endregion
+
+
+
+#region [TestSMTPSender]
+
+
+
+
+#endregion

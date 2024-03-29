@@ -13,6 +13,28 @@ namespace TelegramBotLibrary
 	{
 		public class TelegramBotExample
 		{
+			#region [EXAMPLE2]
+			#region [Objects]
+			private static string token = "6485249044:AAFfU30VmVPwQmcMXPBGjXVA0dHLw5sdSKE";
+			private static ITelegramBotClient botClient = new TelegramBotClient(token);
+			private static ReceiverOptions receiverOptions = null!;
+			private static CancellationTokenSource cts = new CancellationTokenSource();
+			private static INotifyService notifyService = null!;
+			private static object locker = new(); //для записи логов
+			private static SemaphoreSlim semaphore = new SemaphoreSlim(1); //для изменения документов
+
+			//filepaths
+			private static readonly string messageLogPath = "C:\\Users\\korni\\source\\repos\\ScienceMSTUCABot\\MSTUCABOT.ConsoleServer\\Logs\\messagesLog.txt";
+			private static readonly string startBotLogPath = "C:\\Users\\korni\\source\\repos\\ScienceMSTUCABot\\MSTUCABOT.ConsoleServer\\Logs\\startBotLog.txt";
+			private static readonly string errorLogPath = "C:\\Users\\korni\\source\\repos\\ScienceMSTUCABot\\MSTUCABOT.ConsoleServer\\Logs\\errorLog.txt";
+
+			private static readonly string fileSNOFullPath = "C:\\Users\\korni\\source\\repos\\ScienceMSTUCABot\\MSTUCABOT.ConsoleServer\\Documents\\SNO.docx";
+			private static readonly string fileSMUFullPath = "C:\\Users\\korni\\source\\repos\\ScienceMSTUCABot\\MSTUCABOT.ConsoleServer\\Documents\\SMU.docx";
+			#endregion
+			#endregion
+
+
+
 			#region [Configuration&objects]
 			private static readonly IConfiguration config = new ConfigurationBuilder()
 				.AddJsonFile(@"C:\Users\korni\source\repos\TelegramChatProject\TelegramChatProject\Settings\appsettings.json",
@@ -50,7 +72,7 @@ namespace TelegramBotLibrary
 			#endregion
 
 			//starts the bot
-			public static void Main()
+			private static void Main()
 			{
 				Console.WriteLine("Запущен бот " + botClient.GetMeAsync().Result.FirstName);
 
@@ -140,3 +162,7 @@ namespace TelegramBotLibrary
 		}
 	}
 }
+
+
+//главное все в private + выносить все в appsettings.json или в private static readonly поля класса
+//не хранить ничего важного в коде!
